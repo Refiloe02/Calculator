@@ -26,7 +26,7 @@ window.resizable(False, False)
 
 frame = tkinter.Frame(window)
 label = tkinter.Label(frame, text="0", font=("Ariel", 45), background=colour_black,
-                      foreground=colour_white, anchor="e")
+                      foreground=colour_white, anchor="e", width=column_count)
 
 label.grid(row=0,column=0, columnspan=column_count, sticky="we")
 
