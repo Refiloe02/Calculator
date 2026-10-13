@@ -53,17 +53,38 @@ A = "0"
 operator = None
 B = None
 
+def clear_all():
+    global A, B, operator
+
+def remove_zero_decimal(num):
+    if num % 1 == 0:
+        num = int(num)
+    return str(num)
+
 def button_clicked(value):
     global right_symbols, top_symbols, label, A, B, operator
 
     if value in right_symbols:
         pass
+
     elif value in top_symbols:
-        pass
+        if value == "AC":
+            clear_all()
+            label["text"] = "0"
+
+        elif value == "+/-":
+            result = float(label["text"]) * -1
+            label["text"] = remove_zero_decimal(result)
+
+        elif value == "%":
+            result = float(label["text"]) / 100
+            label["text"] = remove_zero_decimal(result)
+
     else: #digits or .
         if value == ".":
             if value not in label["text"]:
                 label["text"] += value
+
         elif value in "0123456789":
             if label["text"] == "0":
                 label["text"] = value #replace 0
