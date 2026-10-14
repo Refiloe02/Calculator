@@ -55,6 +55,9 @@ B = None
 
 def clear_all():
     global A, B, operator
+    A = "0"
+    B = None
+    operator = None
 
 def remove_zero_decimal(num):
     if num % 1 == 0:
@@ -65,7 +68,30 @@ def button_clicked(value):
     global right_symbols, top_symbols, label, A, B, operator
 
     if value in right_symbols:
-        pass
+        if value == "=":
+            if A is not None and operator is not None:
+                B = label["text"]
+                numA = float(A)
+                numB = float(B)
+
+                if operator == "+":
+                    label["text"] = remove_zero_decimal(numA + numB)
+                elif operator == "-":
+                    label["text"] = remove_zero_decimal(numA - numB)
+                elif operator == "×":
+                    label["text"] = remove_zero_decimal(numA * numB)
+                elif operator == "/":
+                    label["text"] = remove_zero_decimal(numA / numB)
+
+                clear_all()
+                           
+        elif value in "+-×/":
+            if operator is None:
+                A = label["text"]
+                label["text"] = "0"
+                B = "0"
+
+                operator = value
 
     elif value in top_symbols:
         if value == "AC":
