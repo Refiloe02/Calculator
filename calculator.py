@@ -1,4 +1,5 @@
 import tkinter
+import math
 
 button_values = [
     ["AC", "+/-", "%", "/"],
@@ -25,7 +26,7 @@ window.title("Calculator")
 window.resizable(False, False)
 
 frame = tkinter.Frame(window)
-label = tkinter.Label(frame, text="0", font=("Ariel", 45), background=colour_black,
+label = tkinter.Label(frame, text="0", font=("Arial", 45), background=colour_black,
                       foreground=colour_white, anchor="e", width=column_count)
 
 label.grid(row=0,column=0, columnspan=column_count, sticky="we")
@@ -81,7 +82,10 @@ def button_clicked(value):
                 elif operator == "×":
                     label["text"] = remove_zero_decimal(numA * numB)
                 elif operator == "/":
-                    label["text"] = remove_zero_decimal(numA / numB)
+                    if numB != 0:
+                        label["text"] = remove_zero_decimal(numA / numB)
+                    else:
+                        label["text"] = "Error"
 
                 clear_all()
                            
@@ -106,6 +110,15 @@ def button_clicked(value):
             result = float(label["text"]) / 100
             label["text"] = remove_zero_decimal(result)
 
+    elif value == "√":
+        num = float(label["text"])
+
+        if num >= 0:
+            result = math.sqrt(num)
+            label["text"] = remove_zero_decimal(result)
+        else:
+            label["text"] = "Error"
+
     else: #digits or .
         if value == ".":
             if value not in label["text"]:
@@ -121,7 +134,7 @@ window.update() #update window with the new size dimensions
 window_width = window.winfo_width()
 window_height = window.winfo_height()
 screen_width = window.winfo_screenwidth()
-screen_height = window.winfo_screenwidth()
+screen_height = window.winfo_screenheight()
 
 window_x = int((screen_width/2) - (window_width/2))
 window_y = int((screen_height/2) - (window_height/2))
